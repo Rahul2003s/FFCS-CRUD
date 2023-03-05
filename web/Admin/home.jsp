@@ -1,4 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -56,38 +60,42 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Faculty Id</th>
-                        <th>Name</th>
-                        <th>Course Code</th>
-                        <th>Course Name</th>
-                        <th>Slot</th>
+                        <th>Student Id</th>
+                        <th>Student name</th>
+                        <th>Student REg</th>
+                        <th>Student dept</th>
+                        <th>credits</th>
                         <th>Action</th>
                     </tr>
                 </thead>
+                <%
+                    try{
+                        Class.forName("com.mysql.cj.jdbc.Driver");  
+                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ffcs_crud","root","");  
+                        Statement stmt = con.createStatement();
+                        ResultSet resultSet = stmt.executeQuery("select * from student");
+                        while(resultSet.next()){
+                %>
                 <tbody>
                     <tr>
-                        <td>17JDE34</td>
-                        <td>John</td>
-                        <td>CSI1002</td>
-                        <td>OOps</td>
-                        <td>D1+TD1</td>
-                        <td>
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10JDE34</td>
-                        <td>Jane Doe</td>
-                        <td>CSI1003</td>
-                        <td>Java</td>
-                        <td>A1+TA1</td>
+                        <td><%=resultSet.getString("s_id")%></td>
+                        <td><%=resultSet.getString("s_name")%></td>
+                        <td><%=resultSet.getString("s_regno")%></td>
+                        <td><%=resultSet.getString("s_dept")%></td>
+                        <td><%=resultSet.getString("s_credits")%></td>
                         <td>
                             <a href="#">Edit</a>
                             <a href="#">Delete</a>
                         </td>
                     </tr>
                 </tbody>
+                <% 
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                %>
             </table>
         </main>
     </body>
