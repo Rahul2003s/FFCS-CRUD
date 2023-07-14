@@ -90,8 +90,6 @@
                             <a href="#">Edit</a>
                             <a href=delete.jsp?f_id=<%=resultSet.getString("f_id")%>">Delete</a></td>
                     
-<!--                        <td><%=resultSet.getString("s_dept")%></td>
-                        <td><%=resultSet.getString("s_credits")%></td> -->
                        
                     </tr>
                 </tbody>
