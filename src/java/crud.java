@@ -6,16 +6,15 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.*;
 
 /**
  *
- * @author arunv
+ * @author rahul
  */
-@WebServlet(urlPatterns = {"/crud"})
 public class crud extends HttpServlet {
 
     /**
@@ -30,17 +29,24 @@ public class crud extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet crud</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet crud at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        int f_id = Integer.parseInt(request.getParameter("f_id"));
+        String f_name = request.getParameter("f_name");
+        String f_department =request.getParameter("f_department");
+//        int s_dept = Integer.parseInt(request.getParameter("cname"));
+//        int s_credits = Integer.parseInt(request.getParameter("credits"));
+//        int  = Integer.parseInt(request.getParameter("tot"));
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");  
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ffcs_crud","root","");  
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("insert into faculty values('"+f_id+"','"+f_name+"','"+f_department+"')");
+            out.println("Updated to the Database");
+            response.sendRedirect(request.getContextPath() + "/home.jsp");
+        }
+        
+        catch(ClassNotFoundException |SQLException e){
+            out.println(e);
         }
     }
 
@@ -57,6 +63,7 @@ public class crud extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**
@@ -71,6 +78,25 @@ public class crud extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+//        PrintWriter out = response.getWriter();
+//        int f_id = Integer.parseInt(request.getParameter("f_id"));
+//        String f_name = request.getParameter("f_name");
+//        String f_department =request.getParameter("f_department");
+////        int s_dept = Integer.parseInt(request.getParameter("cname"));
+////        int s_credits = Integer.parseInt(request.getParameter("credits"));
+////        int  = Integer.parseInt(request.getParameter("tot"));
+// try{
+//            Class.forName("com.mysql.cj.jdbc.Driver");  
+//            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ffcs_crud","root","");  
+//            Statement stmt = con.createStatement();
+//            stmt.executeUpdate("insert into faculty values('"+f_id+"','"+f_name+"','"+f_department+"')");
+//            out.println("Updated to the Database");
+//            response.sendRedirect(request.getContextPath() + "/home.jsp");
+//        }
+//        
+//        catch(ClassNotFoundException |SQLException e){
+//            out.println(e);
+//        }
     }
 
     /**

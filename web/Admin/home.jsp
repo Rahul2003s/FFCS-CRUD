@@ -26,18 +26,21 @@
         </header>
         <main>
             <h1>Add Faculty Details</h1>
-            <form>
-                <label for="fid">Faculty Id:</label>
-                <input type="text" id="fid" name="fid" required>    
-                <label for="fname">Name:</label>
-                <input type="text" id="fname" name="fname" required>
-                <label for="cid">Course Code:</label>
-                <input type="text" id="cid" name="cid" required>
-                <label for="cname">Course Name:</label>
+            <form action="crud" method="post">
+                <label for="f_id">Faculty Id:</label>
+                <input type="number" id="f_id" name="f_id" required>    
+                <label for="f_name">Name:</label>
+                <input type="text" id="f_name" name="f_name" required>
+                <label for="f_department">Course Code:</label>
+                <input type="text" id="f_department" name="f_department" required>
+<!--                <label for="cname">Course Name:</label>
                 <input type="text" id="cname" name="cname" required>
+                <label for="credits">Credits</label>
+                <input type="number" id="credits" name="credits" required>
                 <label for="slot">Slot No:</label>
-                <select id="slot" name="slot" required>
-                    <option value="" disabled selected>Select Slot</option>
+                <select id="slot" name="slot" required>-->
+                
+<!--                    <option value="" disabled selected>Select Slot</option>
                     <option value="A1+TA1">A1+TA1</option>
                     <option value="A2+TA2">A2+TA2</option>
                     <option value="B1+TB1">B1+TB1</option>
@@ -52,7 +55,7 @@
                     <option value="F2+TF2">F2+TF2</option>
                     <option value="G1+TG1">G1+TG1</option>
                     <option value="G2+TG2">G2+TG2</option>
-                </select>
+                </select>-->
                 <button type="submit" class="button-primary">Submit</button>
             </form>
             <hr>
@@ -60,12 +63,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Student Id</th>
-                        <th>Student name</th>
-                        <th>Student REg</th>
-                        <th>Student dept</th>
+                        <th> Faculty Id</th>
+                        <th>faculty name</th>
+                        <th>faculty dept</th>
+                        
+<!--                        <th>Student dept</th>
                         <th>credits</th>
-                        <th>Action</th>
+-->                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <%
@@ -73,20 +78,21 @@
                         Class.forName("com.mysql.cj.jdbc.Driver");  
                         Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ffcs_crud","root","");  
                         Statement stmt = con.createStatement();
-                        ResultSet resultSet = stmt.executeQuery("select * from student");
+                        ResultSet resultSet = stmt.executeQuery("select * from faculty");
                         while(resultSet.next()){
                 %>
                 <tbody>
                     <tr>
-                        <td><%=resultSet.getString("s_id")%></td>
-                        <td><%=resultSet.getString("s_name")%></td>
-                        <td><%=resultSet.getString("s_regno")%></td>
-                        <td><%=resultSet.getString("s_dept")%></td>
-                        <td><%=resultSet.getString("s_credits")%></td>
-                        <td>
+                        <td><%=resultSet.getString("f_id")%></td>
+                        <td><%=resultSet.getString("f_name")%></td>
+                        <td><%=resultSet.getString("f_department")%></td>
+                         <td>
                             <a href="#">Edit</a>
-                            <a href="#">Delete</a>
-                        </td>
+                            <a href=delete.jsp?f_id=<%=resultSet.getString("f_id")%>">Delete</a></td>
+                    
+<!--                        <td><%=resultSet.getString("s_dept")%></td>
+                        <td><%=resultSet.getString("s_credits")%></td> -->
+                       
                     </tr>
                 </tbody>
                 <% 

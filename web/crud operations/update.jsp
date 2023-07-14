@@ -31,7 +31,7 @@ while(resultSet.next()){
 <html>
 <body>
 <h1>Update data from database in jsp</h1>
-<form action="update-process.jsp" method="post">
+<form action="home.jsp" method="post">
     <input type="number" name="id" value="<%=resultSet.getString("student_id")%>">
     <br>
     Student name:<br>
